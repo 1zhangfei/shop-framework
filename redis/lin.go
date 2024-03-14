@@ -1,8 +1,8 @@
 package redis
 
 import (
-	"2108a-zg5/week3/shop/framework/config"
 	"encoding/json"
+	"github.com/1zhangfei/shop-framework/config"
 	"github.com/go-redis/redis/v8"
 	"github.com/spf13/viper"
 )

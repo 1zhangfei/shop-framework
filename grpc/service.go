@@ -1,9 +1,9 @@
 package grpc
 
 import (
-	"2108a-zg5/week3/shop/framework/config"
 	"encoding/json"
 	"fmt"
+	"github.com/1zhangfei/shop-framework/config"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
