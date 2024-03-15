@@ -2,9 +2,8 @@ package grpc
 
 import (
 	"fmt"
-	"github.com/1zhangfei/shop-framework/consul"
+	_ "github.com/mbobakov/grpc-consul-resolver"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 )
 
 func Client(address string) (*grpc.ClientConn, error) {
@@ -13,10 +12,5 @@ func Client(address string) (*grpc.ClientConn, error) {
 		return nil, err
 	}
 
-	ip, port, err := consul.FindConsulAddress(res.Consul, res.Name)
-	if err != nil {
-		return nil, err
-	}
-
-	return grpc.Dial(fmt.Sprintf("%v:%v", ip, port), grpc.WithTransportCredentials(insecure.NewCredentials()))
+	return grpc.Dial(fmt.Sprintf("consul://%v:%v/%v?wait=14s", res.App.Ip, res.Consul, res.Name), grpc.WithInsecure(), grpc.WithDefaultServiceConfig(`{"LoadBalancingPolicy": "round_robin"}`))
 }
